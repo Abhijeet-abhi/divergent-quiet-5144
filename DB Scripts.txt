@@ -1,0 +1,63 @@
+Step-1-(DB Creation and Use)
+----------------------------------
+- create database course_monitoring_db;
+- use course_monitoring_db;
+
+Step-2-(Admin table creation)
+----------------------------------
+- create table Admin
+    -> (
+    -> id int Primary KEY AUTO_INCREMENT,
+    -> username varchar(20) NOT NULL UNIQUE,
+    -> password varchar(20) NOT NULL
+    -> );
+
+Step-3-(Faculty table creation)
+----------------------------------
+- create table Faculty
+    -> (
+    -> facultyId int PRIMARY KEY AUTO_INCREMENT,
+    -> facultyName varchar(50),
+    -> facultyAddress varchar(50),
+    -> mobile varchar(10),
+    -> email varchar(50),
+    -> username varchar(30) NOT NULL UNIQUE,
+    -> password varchar(30) NOT NULL
+    -> );
+
+Step-4-(Course table creation)
+----------------------------------
+create table Course
+    -> (
+    -> courseId int PRIMARY KEY AUTO_INCREMENT,
+    -> courseName varchar(50) UNIQUE,
+    -> fee int,
+    -> courseDescription text
+    -> );
+
+Step-5-(Batch table creation)
+----------------------------------
+- create table Batch
+    -> (
+    -> batchId int PRIMARY KEY AUTO_INCREMENT,
+    -> batchName varchar(50) UNIQUE NOT NULL,
+    -> courseId int NOT NULL,
+    -> facultyId int NOT NULL,
+    -> numberOfStudents int,
+    -> batchStartDate date,
+    -> duration varchar(30),
+    -> foreign key(courseId) references course(courseId) ON DELETE CASCADE,
+    -> foreign key(facultyId) references faculty(facultyId) ON DELETE CASCADE
+    -> );
+
+Step-5-(CoursPlan table creation)
+----------------------------------
+- create table CoursPlan
+    -> (
+    -> planId int PRIMARY KEY AUTO_INCREMENT,
+    -> batchId int NOT NULL,
+    -> dayNumber int,
+    -> topic varchar(50),
+    -> status varchar(20),
+    -> foreign key(batchId) references batch(batchId) ON DELETE CASCADE
+    -> );
