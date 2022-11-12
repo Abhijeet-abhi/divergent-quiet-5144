@@ -45,7 +45,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 		try (Connection conn = DBUtil.provideConnection()) {
 
 			PreparedStatement ps = conn
-					.prepareStatement("insert into coursePlan(batchId,dayNumber,topic,status) values(?,?,?,?)");
+					.prepareStatement("insert into coursPlan(batchId,dayNumber,topic,status) values(?,?,?,?)");
 
 			ps.setInt(1, coursePlan.getBatchId());
 			ps.setInt(2, coursePlan.getDayNumber());
@@ -72,7 +72,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement pss = conn.prepareStatement("select * from coursePlan where planId=?");
+			PreparedStatement pss = conn.prepareStatement("select * from coursPlan where planId=?");
 
 			pss.setInt(1, id);
 			ResultSet rs = pss.executeQuery();
@@ -96,7 +96,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 		try (Connection conn = DBUtil.provideConnection()) {
 
 			PreparedStatement ps = conn
-					.prepareStatement("update coursePlan set batchId=?,dayNumber=?,topic=?,status=? where planId=?");
+					.prepareStatement("update coursPlan set batchId=?,dayNumber=?,topic=?,status=? where planId=?");
 
 			ps.setInt(1, coursePlan.getBatchId());
 			ps.setInt(2, coursePlan.getDayNumber());
@@ -125,7 +125,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("select * from coursePlan");
+			PreparedStatement ps = conn.prepareStatement("select * from coursPlan");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -176,7 +176,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 		try (Connection conn = DBUtil.provideConnection()) {
 
 			PreparedStatement ps = conn.prepareStatement(
-					"select cp.dayNumber,cp.status,c.courseId,c.courseName,b.batchId,b.batchName,f.facultyId,f.facultyName from coursePlan cp INNER JOIN batch b ON cp.batchId=b.batchId INNER JOIN course c ON c.courseId=b.courseId INNER JOIN faculty f ON f.facultyId=b.facultyId group by batchId");
+					"select cp.dayNumber,cp.status,c.courseId,c.courseName,b.batchId,b.batchName,f.facultyId,f.facultyName from coursPlan cp INNER JOIN batch b ON cp.batchId=b.batchId INNER JOIN course c ON c.courseId=b.courseId INNER JOIN faculty f ON f.facultyId=b.facultyId group by batchId");
 
 			ResultSet rs = ps.executeQuery();
 
@@ -219,7 +219,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("select * from coursePlan where status='Pending'");
+			PreparedStatement ps = conn.prepareStatement("select * from coursPlan where status='Pending'");
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -249,7 +249,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("update coursePlan set status='Completed' where planId=?");
+			PreparedStatement ps = conn.prepareStatement("update coursPlan set status='Completed' where planId=?");
 
 			ps.setInt(1, id);
 			int res = ps.executeUpdate();
@@ -273,7 +273,7 @@ public class CoursePlanDaoImp implements CoursePlanDao {
 
 		try (Connection conn = DBUtil.provideConnection()) {
 
-			PreparedStatement ps = conn.prepareStatement("select * from coursePlan where planId=? AND status='Pending'");
+			PreparedStatement ps = conn.prepareStatement("select * from coursPlan where planId=? AND status='Pending'");
 
 			ps.setInt(1, id);
 			ResultSet res = ps.executeQuery();
